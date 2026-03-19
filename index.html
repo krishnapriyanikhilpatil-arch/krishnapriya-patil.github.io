@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krishnapriya Patil — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f2545;
+    --blue: #1b4f8a;
+    --accent: #e8732a;
+    --cream: #faf8f4;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --light: #f0f4f9;
+    --border: #dde4ef;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 1.15rem; color: var(--navy);
+    text-decoration: none; letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(27,79,138,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -100px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,115,42,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 380px;
+    gap: 80px; align-items: center; width: 100%; max-width: 1100px; margin: 0 auto;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--light); border: 1px solid var(--border);
+    padding: 7px 16px; border-radius: 100px;
+    font-size: 0.82rem; font-weight: 500; color: var(--blue);
+    margin-bottom: 24px; opacity: 0; animation: fadeUp 0.6s 0.1s forwards;
+  }
+  .hero-tag span { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    line-height: 1.12; font-weight: 900;
+    color: var(--navy); margin-bottom: 20px;
+    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero h1 em { color: var(--blue); font-style: normal; }
+
+  .hero-desc {
+    font-size: 1.05rem; line-height: 1.75; color: var(--gray);
+    max-width: 520px; margin-bottom: 36px;
+    opacity: 0; animation: fadeUp 0.6s 0.3s forwards;
+  }
+
+  .hero-cta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.6s 0.4s forwards;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blue); color: white;
+    padding: 13px 28px; border-radius: 8px;
+    font-size: 0.92rem; font-weight: 600; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(27,79,138,0.25);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,79,138,0.3); }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--navy);
+    padding: 13px 28px; border-radius: 8px; border: 1.5px solid var(--border);
+    font-size: 0.92rem; font-weight: 600; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--blue); background: var(--light); }
+
+  /* HERO CARD */
+  .hero-card {
+    background: var(--white); border-radius: 20px;
+    padding: 36px; border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(15,37,69,0.08);
+    opacity: 0; animation: fadeLeft 0.7s 0.5s forwards;
+  }
+  .hero-card-avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), #2e6fc4);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700; color: white;
+    margin-bottom: 20px;
+  }
+  .hero-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-weight: 700; color: var(--navy); margin-bottom: 4px;
+  }
+  .hero-card p { font-size: 0.85rem; color: var(--gray); margin-bottom: 24px; }
+
+  .badge-list { display: flex; flex-direction: column; gap: 10px; }
+  .badge {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--light); border-radius: 10px;
+    padding: 12px 16px; border: 1px solid var(--border);
+  }
+  .badge-icon { font-size: 1.1rem; }
+  .badge-text { font-size: 0.83rem; font-weight: 600; color: var(--navy); }
+  .badge-sub { font-size: 0.75rem; color: var(--gray); }
+  .badge.highlight { background: rgba(27,79,138,0.06); border-color: rgba(27,79,138,0.2); }
+
+  /* SECTION BASE */
+  section { padding: 90px 5%; }
+  .section-label {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700;
+    color: var(--navy); margin-bottom: 16px;
+  }
+  .section-desc { font-size: 1rem; color: var(--gray); line-height: 1.7; max-width: 560px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  /* ABOUT / STATS */
+  .stats-section { background: var(--navy); }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px; max-width: 1100px; margin: 0 auto;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.05); padding: 44px 32px;
+    text-align: center; transition: background 0.2s;
+  }
+  .stat-card:hover { background: rgba(255,255,255,0.09); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 900; color: white;
+    margin-bottom: 6px;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 0.88rem; color: rgba(255,255,255,0.55); font-weight: 500; }
+
+  /* SKILLS */
+  .skills-section { background: var(--white); }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
+  .skill-card {
+    background: var(--cream); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(15,37,69,0.08); border-color: var(--blue); }
+  .skill-icon { font-size: 1.8rem; margin-bottom: 14px; }
+  .skill-card h4 { font-weight: 700; font-size: 1rem; color: var(--navy); margin-bottom: 8px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .skill-tag {
+    background: var(--light); border: 1px solid var(--border);
+    padding: 4px 12px; border-radius: 100px;
+    font-size: 0.77rem; font-weight: 500; color: var(--blue);
+  }
+
+  /* PORTFOLIO */
+  .portfolio-section { background: var(--cream); }
+  .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
+  .portfolio-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .portfolio-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(15,37,69,0.1); }
+  .portfolio-thumb {
+    height: 140px; display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; position: relative;
+  }
+  .portfolio-thumb.blue { background: linear-gradient(135deg, #1b4f8a15, #1b4f8a25); }
+  .portfolio-thumb.orange { background: linear-gradient(135deg, #e8732a15, #e8732a25); }
+  .portfolio-thumb.green { background: linear-gradient(135deg, #1a6b3c15, #1a6b3c25); }
+  .portfolio-content { padding: 24px; }
+  .portfolio-cat {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .portfolio-card h4 { font-weight: 700; font-size: 1rem; color: var(--navy); margin-bottom: 8px; line-height: 1.4; }
+  .portfolio-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+  /* EDUCATION */
+  .edu-section { background: var(--white); }
+  .edu-timeline { margin-top: 50px; position: relative; }
+  .edu-timeline::before {
+    content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .edu-item {
+    display: flex; gap: 32px; padding: 0 0 40px 60px;
+    position: relative;
+  }
+  .edu-dot {
+    position: absolute; left: 12px; top: 4px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--blue); border: 3px solid var(--cream);
+    box-shadow: 0 0 0 2px var(--blue);
+  }
+  .edu-item:first-child .edu-dot { background: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+  .edu-year {
+    font-size: 0.82rem; font-weight: 600; color: var(--accent);
+    white-space: nowrap; padding-top: 2px; min-width: 80px;
+  }
+  .edu-details h4 { font-weight: 700; font-size: 1rem; color: var(--navy); margin-bottom: 4px; }
+  .edu-details p { font-size: 0.88rem; color: var(--gray); margin-bottom: 6px; }
+  .edu-badge {
+    display: inline-block; background: var(--light); border: 1px solid var(--border);
+    padding: 3px 12px; border-radius: 100px;
+    font-size: 0.76rem; font-weight: 600; color: var(--blue);
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--navy);
+    text-align: center; padding: 90px 5%;
+  }
+  .contact-section .section-label { color: rgba(232,115,42,0.9); }
+  .contact-section .section-title { color: white; text-align: center; }
+  .contact-section .section-desc { color: rgba(255,255,255,0.55); margin: 0 auto 40px; text-align: center; }
+  .contact-grid {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    max-width: 700px; margin: 0 auto;
+  }
+  .contact-item {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    padding: 14px 24px; border-radius: 10px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.9rem; color: rgba(255,255,255,0.8);
+    text-decoration: none; transition: background 0.2s;
+  }
+  .contact-item:hover { background: rgba(255,255,255,0.13); }
+  .contact-item span { font-size: 1.1rem; }
+
+  /* FOOTER */
+  footer {
+    background: #0a1b38; text-align: center;
+    padding: 24px; font-size: 0.82rem; color: rgba(255,255,255,0.3);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(24px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-card { display: none; }
+    .stats-grid { grid-template-columns: repeat(2,1fr); }
+    .skills-grid, .portfolio-grid { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 600px) {
+    .stats-grid, .skills-grid, .portfolio-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Krishnapriya Patil</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag"><span></span> Open to Remote Internships</div>
+      <h1>Finance Student.<br><em>Content & Research</em><br>Specialist.</h1>
+      <p class="hero-desc">B.Com Finance student at Shivaji University, CSEET qualifier, and MSCIT certified. I create research reports, SEO content, and social media strategies that deliver real results.</p>
+      <div class="hero-cta">
+        <a href="#portfolio" class="btn-primary">View My Work →</a>
+        <a href="#contact" class="btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-card-avatar">KP</div>
+      <h3>Krishnapriya Patil</h3>
+      <p>Kolhapur, Maharashtra</p>
+      <div class="badge-list">
+        <div class="badge highlight">
+          <span class="badge-icon">🏆</span>
+          <div>
+            <div class="badge-text">CSEET Cleared</div>
+            <div class="badge-sub">ICSI — 2024</div>
+          </div>
+        </div>
+        <div class="badge">
+          <span class="badge-icon">🎓</span>
+          <div>
+            <div class="badge-text">B.Com Finance</div>
+            <div class="badge-sub">Shivaji University — 2nd Year</div>
+          </div>
+        </div>
+        <div class="badge">
+          <span class="badge-icon">💻</span>
+          <div>
+            <div class="badge-text">MSCIT Certified</div>
+            <div class="badge-sub">MKCL Maharashtra</div>
+          </div>
+        </div>
+        <div class="badge">
+          <span class="badge-icon">🌐</span>
+          <div>
+            <div class="badge-text">English · Hindi · Marathi</div>
+            <div class="badge-sub">Trilingual</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-card reveal">
+      <div class="stat-num">2<span>+</span></div>
+      <div class="stat-label">Professional Certifications</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-num">3<span>+</span></div>
+      <div class="stat-label">Portfolio Work Samples</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Languages Spoken</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-num">100<span>%</span></div>
+      <div class="stat-label">Remote Work Ready</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-inner">
+    <p class="section-label reveal">What I Bring</p>
+    <h2 class="section-title reveal">Skills & Tools</h2>
+    <p class="section-desc reveal">A practical combination of finance knowledge, digital tools, and communication skills — ready to contribute from day one.</p>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">✍️</div>
+        <h4>Content Writing & SEO</h4>
+        <p style="font-size:0.87rem;color:var(--gray);line-height:1.6;">Research-backed articles, blog posts, and SEO-optimised content that ranks and reads well.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">SEO Writing</span>
+          <span class="skill-tag">Research</span>
+          <span class="skill-tag">Editing</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📊</div>
+        <h4>Market Research</h4>
+        <p style="font-size:0.87rem;color:var(--gray);line-height:1.6;">Competitor analysis, industry landscape reports, and data-organised insights for decision-making.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Competitor Analysis</span>
+          <span class="skill-tag">Reports</span>
+          <span class="skill-tag">Data Entry</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📱</div>
+        <h4>Social Media Strategy</h4>
+        <p style="font-size:0.87rem;color:var(--gray);line-height:1.6;">Content calendars, platform-specific strategies, and engagement-focused planning for small businesses.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Content Calendar</span>
+          <span class="skill-tag">Instagram</span>
+          <span class="skill-tag">Strategy</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🎨</div>
+        <h4>Digital Tools</h4>
+        <p style="font-size:0.87rem;color:var(--gray);line-height:1.6;">Proficient in MS Office Suite and Canva for professional documents, presentations, and creatives.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">MS Excel</span>
+          <span class="skill-tag">MS Word</span>
+          <span class="skill-tag">Canva</span>
+          <span class="skill-tag">PowerPoint</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">💰</div>
+        <h4>Finance Knowledge</h4>
+        <p style="font-size:0.87rem;color:var(--gray);line-height:1.6;">Financial accounting, business economics, and corporate finance fundamentals from B.Com and CSEET.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Accounting</span>
+          <span class="skill-tag">Business Law</span>
+          <span class="skill-tag">Economics</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🗣️</div>
+        <h4>Communication</h4>
+        <p style="font-size:0.87rem;color:var(--gray);line-height:1.6;">Strong written English, professional business communication, and client-facing correspondence skills.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">English</span>
+          <span class="skill-tag">Hindi</span>
+          <span class="skill-tag">Marathi</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section" id="portfolio">
+  <div class="section-inner">
+    <p class="section-label reveal">Work Samples</p>
+    <h2 class="section-title reveal">Portfolio</h2>
+    <p class="section-desc reveal">Sample projects demonstrating research, content writing, and strategic planning capabilities.</p>
+    <div class="portfolio-grid">
+      <div class="portfolio-card reveal">
+        <div class="portfolio-thumb blue">📝</div>
+        <div class="portfolio-content">
+          <p class="portfolio-cat">SEO Content Writing</p>
+          <h4>5 Ways Small Businesses Can Use Social Media to Grow in 2026</h4>
+          <p>900-word SEO-optimised article with keyword strategy, structured headings, and actionable insights for Indian SMBs.</p>
+        </div>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-thumb orange">📅</div>
+        <div class="portfolio-content">
+          <p class="portfolio-cat">Social Media Strategy</p>
+          <h4>7-Day Social Media Content Plan for Indian Small Business</h4>
+          <p>Complete weekly content calendar with platform strategy, KPIs, hashtag research, and free tool recommendations.</p>
+        </div>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-thumb green">📈</div>
+        <div class="portfolio-content">
+          <p class="portfolio-cat">Market Research Report</p>
+          <h4>Indian EdTech Market: Landscape Analysis & Opportunity Report 2026</h4>
+          <p>Structured competitive analysis covering key players, growth drivers, challenges, and strategic opportunities.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="edu-section" id="education">
+  <div class="section-inner">
+    <p class="section-label reveal">Academic Background</p>
+    <h2 class="section-title reveal">Education & Certifications</h2>
+    <div class="edu-timeline">
+      <div class="edu-item reveal">
+        <div class="edu-dot"></div>
+        <div class="edu-year">2024–Present</div>
+        <div class="edu-details">
+          <h4>Bachelor of Commerce — Finance</h4>
+          <p>Shivaji University, Kolhapur</p>
+          <span class="edu-badge">2nd Year · Currently Enrolled</span>
+        </div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-dot"></div>
+        <div class="edu-year">2024</div>
+        <div class="edu-details">
+          <h4>CSEET — Company Secretary Executive Entrance Test</h4>
+          <p>Institute of Company Secretaries of India (ICSI)</p>
+          <span class="edu-badge">✓ Cleared</span>
+        </div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-dot"></div>
+        <div class="edu-year">Completed</div>
+        <div class="edu-details">
+          <h4>MSCIT — Maharashtra State Certificate in IT</h4>
+          <p>MKCL — Covers MS Office, Internet Tools, Digital Literacy</p>
+          <span class="edu-badge">✓ Certified</span>
+        </div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-dot"></div>
+        <div class="edu-year">2023–2024</div>
+        <div class="edu-details">
+          <h4>HSC — Senior Secondary (Science & Mathematics)</h4>
+          <p>Maharashtra State Board</p>
+          <span class="edu-badge">Science + Maths Stream</span>
+        </div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-dot"></div>
+        <div class="edu-year">2021–2022</div>
+        <div class="edu-details">
+          <h4>SSC — Secondary School Certificate</h4>
+          <p>Maharashtra State Board</p>
+          <span class="edu-badge">Completed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <p class="section-label">Let's Connect</p>
+  <h2 class="section-title">Available for Remote Internships</h2>
+  <p class="section-desc">I am actively seeking remote internship opportunities in content writing, SEO, social media, market research, and data entry. Available to start immediately.</p>
+  <div class="contact-grid">
+    <a href="mailto:krishnapriyanikhilpatil@gmail.com" class="contact-item">
+      <span>✉️</span> krishnapriyanikhilpatil@gmail.com
+    </a>
+    <a href="tel:+919860752471" class="contact-item">
+      <span>📞</span> +91 9860752471
+    </a>
+    <div class="contact-item">
+      <span>📍</span> Kolhapur, Maharashtra
+    </div>
+    <div class="contact-item">
+      <span>🕐</span> Available Immediately
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Krishnapriya Patil · Kolhapur, Maharashtra
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
